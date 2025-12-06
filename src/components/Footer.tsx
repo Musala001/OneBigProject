@@ -23,11 +23,11 @@ const Footer = () => {
         &copy; {new Date().getFullYear()} Cryptography Explorer. All rights reserved.
       </p>
       <p>
-        <a href="https://github.com/" style={linkStyle} target="_blank" rel="noreferrer">
+        <a href="https://github.com/Musala001" style={linkStyle} target="_blank" rel="noreferrer">
           GitHub
         </a>
         |
-        <a href="https://www.linkedin.com/" style={linkStyle} target="_blank" rel="noreferrer">
+        <a href="https://www.linkedin.com/in/musala-ndouvhada-78bb892b9/" style={linkStyle} target="_blank" rel="noreferrer">
           LinkedIn
         </a>
       </p>
