@@ -3,40 +3,59 @@ import type { CSSProperties } from "react";
 import { useState } from "react";
 
 const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
   const navStyle: CSSProperties = {
     display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "0.5rem 1rem",
+    flexDirection: "column",
     backgroundColor: "#1f2937",
     color: "#fff",
     position: "sticky",
     top: 0,
     zIndex: 1000,
+    padding: "0.5rem 1rem",
+  };
+
+  const topBarStyle: CSSProperties = {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
   };
 
   const titleStyle: CSSProperties = {
     fontSize: "1.5rem",
     fontWeight: "bold",
-    margin: "0.5rem 0",
   };
 
-  const linkContainerStyle: CSSProperties = {
-    display: "flex",
-    flexWrap: "wrap",
-    gap: "0.5rem",
+  const hamburgerStyle: CSSProperties = {
+    fontSize: "1.5rem",
+    cursor: "pointer",
+    userSelect: "none",
   };
 
-  const linkBaseStyle: CSSProperties = {
+  const dropdownStyle: CSSProperties = {
+    display: menuOpen ? "block" : "none",
+    position: "absolute",
+    right: "1rem",
+    top: "3rem", // below the navbar
+    backgroundColor: "#1f2937",
+    border: "1px solid #374151",
+    borderRadius: "4px",
+    boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+    padding: "0.5rem 0",
+    minWidth: "150px",
+    zIndex: 1000,
+  };
+
+  const linkStyle: CSSProperties = {
+    display: "block",
     color: "#fff",
     textDecoration: "none",
-    padding: "0.3rem 0.5rem",
-    borderRadius: "4px",
+    padding: "0.5rem 1rem",
     transition: "background-color 0.3s",
   };
 
-  // List of pages for easier scalability
   const links = [
     { to: "/", label: "Home" },
     { to: "/shift-cipher", label: "Shift" },
@@ -51,23 +70,31 @@ const Navbar = () => {
     { to: "/elgamal", label: "ElGamal" },
   ];
 
-  // Hover effect handled via inline state
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
   return (
     <nav style={navStyle}>
-      <div style={titleStyle}>Cryptography Explorer</div>
-      <div style={linkContainerStyle}>
+      <div style={topBarStyle}>
+        <div style={titleStyle}>Cryptography Explorer</div>
+        <div
+          style={hamburgerStyle}
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          ☰
+        </div>
+      </div>
+
+      {/* Dropdown menu */}
+      <div style={dropdownStyle}>
         {links.map((link, index) => (
           <Link
             key={link.to}
             to={link.to}
             style={{
-              ...linkBaseStyle,
+              ...linkStyle,
               backgroundColor: hoveredIndex === index ? "#374151" : "transparent",
             }}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
+            onClick={() => setMenuOpen(false)}
           >
             {link.label}
           </Link>
