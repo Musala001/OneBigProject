@@ -1,73 +1,78 @@
-# React + TypeScript + Vite
+# OneBigProject - Cryptography Web App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![License: MIT](https://img.shields.io/badge/License-MIT-green)
+![React](https://img.shields.io/badge/React-18-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blueviolet)
+![Vite](https://img.shields.io/badge/Vite-Latest-yellow)
 
-Currently, two official plugins are available:
+A modern, interactive educational web application demonstrating classical and modern cryptography techniques. Built with React, TypeScript, and CSS using Vite for fast development and optimized builds. This project is designed to help learners understand encryption, decryption, key exchange, and digital signatures.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## React Compiler
+- Interactive encryption and decryption for multiple ciphers  
+- Step-by-step demonstrations of key generation, encryption, decryption, and digital signatures  
+- Visual and explanatory components for each cryptosystem  
+- Covers both classical symmetric ciphers and modern asymmetric cryptography  
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Pages & Routes
 
-## Expanding the ESLint configuration
+| Page Name                     | Route                        |
+|--------------------------------|------------------------------|
+| Introduction                  | /                            |
+| Shift Cipher                  | /shift-cipher                |
+| Affine Cipher                 | /affine-cipher               |
+| Keyword Mixed Cipher          | /keyword-mixed               |
+| Symmetric Cipher              | /symmetric-cipher            |
+| Vigenère Cipher               | /vigenere-cipher             |
+| Hill Cipher                   | /hill-cipher                 |
+| One-Time Pad                  | /one-time-pad                |
+| RSA                           | /rsa                         |
+| Key Exchange (Diffie-Hellman) | /key-exchange                |
+| ElGamal                       | /elgamal                     |
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Cryptography Topics Covered
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Classical Symmetric Ciphers: Shift, Affine, Keyword Mixed, Vigenère, Hill, One-Time Pad  
+- Modern Asymmetric Cryptography: RSA, Diffie-Hellman Key Exchange, ElGamal  
+- Digital Signatures and Authentication  
+- Modular Arithmetic & Number Theory Concepts
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Technologies Used
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- React - Frontend framework for interactive UI components  
+- TypeScript - Type-safe development  
+- CSS - Styling for responsive and clean UI  
+- Vite - Modern build tool for fast development  
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Musala001/OneBigProject.git
+2. Install dependencies:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+3. npm install
+   Start the development server:
+
+4. npm run dev
+   Open your browser at http://localhost:5173
+
+Contributing
+
+Contributions are welcome! You can:
+
+Add new ciphers or cryptography algorithms
+
+Improve UI/UX and styling
+
+Fix bugs or enhance documentation
+
+Please open an issue or submit a pull request for any changes.
+
+License
+
+This project is licensed under the MIT License. See the LICENSE
+ file for details.
+
+
+
