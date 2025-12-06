@@ -12,6 +12,7 @@ const modExp = (base: bigint, exp: bigint, mod: bigint): bigint => {
   return result;
 };
 
+// Extended Euclidean Algorithm for modular inverse
 const modInverse = (e: bigint, phi: bigint): bigint => {
   let [old_r, r] = [phi, e];
   let [old_s, s] = [1n, 0n];
@@ -27,43 +28,49 @@ const modInverse = (e: bigint, phi: bigint): bigint => {
 };
 
 const RSA = () => {
-  const [p, setP] = useState("5");
-  const [q, setQ] = useState("11");
-  const [e, setE] = useState("7");
+  const [p, setP] = useState("61"); // default primes
+  const [q, setQ] = useState("53");
+  const [e, setE] = useState("17");
   const [plaintext, setPlaintext] = useState("");
   const [ciphertext, setCiphertext] = useState("");
+  const [result, setResult] = useState("");
   const [signMessage, setSignMessage] = useState("");
   const [signedMessage, setSignedMessage] = useState("");
   const [verificationResult, setVerificationResult] = useState("");
-  const [result, setResult] = useState("");
 
+  // Computed values
   const n = BigInt(p) * BigInt(q);
   const phi = (BigInt(p) - 1n) * (BigInt(q) - 1n);
   const d = modInverse(BigInt(e), phi);
 
-  // Encryption
+  // Encrypt plaintext
   const handleEncrypt = () => {
     const nums = plaintext.split("").map(c => BigInt(c.charCodeAt(0)));
     const encrypted = nums.map(num => modExp(num, BigInt(e), n).toString()).join(" ");
     setResult(encrypted);
+    setCiphertext(encrypted);
   };
 
-  // Decryption
+  // Decrypt ciphertext
   const handleDecrypt = () => {
-    const nums = ciphertext.split(" ").map(c => BigInt(c));
-    const decrypted = nums.map(num => String.fromCharCode(Number(modExp(num, d, n)))).join("");
-    setResult(decrypted);
+    try {
+      const nums = ciphertext.split(" ").map(c => BigInt(c));
+      const decrypted = nums.map(num => String.fromCharCode(Number(modExp(num, d, n)))).join("");
+      setResult(decrypted);
+    } catch {
+      setResult("Error: Invalid ciphertext or parameters");
+    }
   };
 
-  // Signing
+  // Sign numeric message
   const handleSign = () => {
     const msgNum = BigInt(signMessage);
     const signature = modExp(msgNum, d, n);
     setSignedMessage(signature.toString());
-    setVerificationResult(""); // clear previous verification
+    setVerificationResult("");
   };
 
-  // Verification
+  // Verify signature
   const handleVerify = () => {
     const signatureNum = BigInt(signedMessage);
     const verified = modExp(signatureNum, BigInt(e), n);
@@ -87,18 +94,24 @@ const RSA = () => {
     <div style={containerStyle}>
       <h1 style={titleStyle}>RSA Cryptosystem</h1>
       <p style={sectionStyle}>
-        RSA allows encryption, decryption, and digital signatures. Enter primes <b>p</b> and <b>q</b>, and public exponent <b>e</b>. The modulus <b>n = p * q</b> and private key <b>d</b> are computed automatically.
+        RSA allows encryption, decryption, and digital signatures.
+        The modulus n = p * q, φ(n) = (p-1)(q-1), and the private key d are computed automatically.
+        Formulas:
+        <br />Encryption: c ≡ m^e mod n
+        <br />Decryption: m ≡ c^d mod n
+        <br />Signing: s ≡ m^d mod n
+        <br />Verification: m ≡ s^e mod n
       </p>
 
       <h2>Key Parameters</h2>
-      <input style={inputStyle} type="text" placeholder="Enter prime p" value={p} onChange={e => setP(e.target.value)} />
-      <input style={inputStyle} type="text" placeholder="Enter prime q" value={q} onChange={e => setQ(e.target.value)} />
-      <input style={inputStyle} type="text" placeholder="Enter public exponent e" value={e} onChange={e => setE(e.target.value)} />
-      <p style={sectionStyle}>Computed values: n = {n.toString()}, φ(n) = {phi.toString()}, d = {d.toString()}</p>
+      <input style={inputStyle} type="text" placeholder="Prime p" value={p} onChange={e => setP(e.target.value)} />
+      <input style={inputStyle} type="text" placeholder="Prime q" value={q} onChange={e => setQ(e.target.value)} />
+      <input style={inputStyle} type="text" placeholder="Public exponent e" value={e} onChange={e => setE(e.target.value)} />
+      <p style={sectionStyle}>Computed: n = {n.toString()}, φ(n) = {phi.toString()}, d = {d.toString()}</p>
 
       <h2>Encrypt / Decrypt</h2>
-      <input style={inputStyle} type="text" placeholder="Enter plaintext (ASCII)" value={plaintext} onChange={e => setPlaintext(e.target.value)} />
-      <input style={inputStyle} type="text" placeholder="Enter ciphertext (numbers separated by space)" value={ciphertext} onChange={e => setCiphertext(e.target.value)} />
+      <input style={inputStyle} type="text" placeholder="Plaintext" value={plaintext} onChange={e => setPlaintext(e.target.value)} />
+      <input style={inputStyle} type="text" placeholder="Ciphertext (space-separated numbers)" value={ciphertext} onChange={e => setCiphertext(e.target.value)} />
 
       <div style={buttonContainerStyle}>
         <button style={buttonStyle} onClick={handleEncrypt}>Encrypt</button>
@@ -108,7 +121,7 @@ const RSA = () => {
       <p style={{ ...sectionStyle, fontWeight: "bold" }}>Result: {result}</p>
 
       <h2>Digital Signature</h2>
-      <input style={inputStyle} type="text" placeholder="Enter numeric message to sign" value={signMessage} onChange={e => setSignMessage(e.target.value)} />
+      <input style={inputStyle} type="text" placeholder="Numeric message to sign" value={signMessage} onChange={e => setSignMessage(e.target.value)} />
       <div style={buttonContainerStyle}>
         <button style={buttonStyle} onClick={handleSign}>Sign</button>
         <button style={buttonStyle} onClick={handleVerify}>Verify</button>

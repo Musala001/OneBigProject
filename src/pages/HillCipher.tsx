@@ -20,22 +20,34 @@ const modInverse = (a: number, m: number): number | null => {
 };
 
 // Encrypt/decrypt 2x2 Hill Cipher
-const hillProcess = (text: string, key: number[][], decrypt = false): string => {
+const hillProcess = (text: string, key: number[][], decrypt = false): { result: string; info: string } => {
   text = cleanText(text);
+  let info = "";
+
   if (text.length % 2 !== 0) text += "X"; // pad if odd length
 
   let a = key[0][0], b = key[0][1], c = key[1][0], d = key[1][1];
 
   if (decrypt) {
-    const det = (a * d - b * c + 26) % 26;
+    const det = ((a * d - b * c) % 26 + 26) % 26;
     const detInv = modInverse(det, 26);
-    if (detInv === null) return "Key matrix not invertible!";
-    // Inverse matrix modulo 26
-    const aNew = (d * detInv + 26) % 26;
+    if (detInv === null) return { result: "", info: "Key matrix not invertible modulo 26!" };
+
+    info += `Determinant = ${det}, Inverse determinant = ${detInv}\n`;
+
+    // Correct inverse matrix modulo 26
+    const aNew = (d * detInv) % 26;
     const bNew = ((-b + 26) * detInv) % 26;
     const cNew = ((-c + 26) * detInv) % 26;
     const dNew = (a * detInv) % 26;
-    a = aNew; b = bNew; c = cNew; d = dNew;
+
+    // Ensure positive modulo
+    a = (aNew + 26) % 26;
+    b = (bNew + 26) % 26;
+    c = (cNew + 26) % 26;
+    d = (dNew + 26) % 26;
+
+    info += `Inverse matrix modulo 26 = [[${a}, ${b}], [${c}, ${d}]]\n`;
   }
 
   let result = "";
@@ -47,7 +59,7 @@ const hillProcess = (text: string, key: number[][], decrypt = false): string => 
     result += numToLetter(c1) + numToLetter(c2);
   }
 
-  return result;
+  return { result, info };
 };
 
 const HillCipher = () => {
@@ -57,13 +69,16 @@ const HillCipher = () => {
   const [k21, setK21] = useState("4");
   const [k22, setK22] = useState("15");
   const [result, setResult] = useState("");
+  const [info, setInfo] = useState("");
 
   const handleEncrypt = () => {
     const key = [
       [parseInt(k11), parseInt(k12)],
       [parseInt(k21), parseInt(k22)],
     ];
-    setResult(hillProcess(text, key, false));
+    const res = hillProcess(text, key, false);
+    setResult(res.result);
+    setInfo(res.info);
   };
 
   const handleDecrypt = () => {
@@ -71,7 +86,9 @@ const HillCipher = () => {
       [parseInt(k11), parseInt(k12)],
       [parseInt(k21), parseInt(k22)],
     ];
-    setResult(hillProcess(text, key, true));
+    const res = hillProcess(text, key, true);
+    setResult(res.result);
+    setInfo(res.info);
   };
 
   const containerStyle: CSSProperties = {
@@ -161,6 +178,7 @@ const HillCipher = () => {
       </div>
 
       <p style={{ ...sectionStyle, fontWeight: "bold" }}>Result: {result}</p>
+      {info && <pre style={{ ...sectionStyle, fontWeight: "bold", color: "#444" }}>{info}</pre>}
 
       <p style={sectionStyle}>
         Example: Using key matrix <b>[[5,17],[4,15]]</b> and message "THEGOLDISBURIED", the ciphertext should be <b>GZSCXNVCDJZXEOV</b>.
