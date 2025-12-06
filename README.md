@@ -1,57 +1,78 @@
-Cryptography Web App
+# OneBigProject - Cryptography Web App
 
-A React-based educational web application that demonstrates classical and modern cryptography techniques. This project is designed for learning and visualizing encryption, decryption, key exchange, and digital signatures.
+![License: MIT](https://img.shields.io/badge/License-MIT-green)
+![React](https://img.shields.io/badge/React-18-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blueviolet)
+![Vite](https://img.shields.io/badge/Vite-Latest-yellow)
 
-Features
+A modern, interactive educational web application demonstrating classical and modern cryptography techniques. Built with React, TypeScript, and CSS using Vite for fast development and optimized builds. This project is designed to help learners understand encryption, decryption, key exchange, and digital signatures.
 
-- Interactive encryption and decryption pages for various ciphers
-- Implementation of classical symmetric ciphers and modern asymmetric cryptography
-- Step-by-step demonstrations of key generation, encryption, decryption, and digital signatures
-- Inline explanations for each cryptosystem to aid understanding
+## Features
 
-Pages & Routes Mapping
+- Interactive encryption and decryption for multiple ciphers  
+- Step-by-step demonstrations of key generation, encryption, decryption, and digital signatures  
+- Visual and explanatory components for each cryptosystem  
+- Covers both classical symmetric ciphers and modern asymmetric cryptography  
 
-Page Name                     Route
-Introduction                  / 
-Shift Cipher                  /shift-cipher
-Affine Cipher                 /affine-cipher
-Keyword Mixed Cipher          /keyword-mixed
-Symmetric Cipher              /symmetric-cipher
-Vigenère Cipher               /vigenere-cipher
-Hill Cipher                   /hill-cipher
-One-Time Pad                  /one-time-pad
-RSA                           /rsa
-Key Exchange (Diffie-Hellman)/key-exchange
-ElGamal                       /elgamal
+## Pages & Routes
 
-Technologies Used
+| Page Name                     | Route                        |
+|--------------------------------|------------------------------|
+| Introduction                  | /                            |
+| Shift Cipher                  | /shift-cipher                |
+| Affine Cipher                 | /affine-cipher               |
+| Keyword Mixed Cipher          | /keyword-mixed               |
+| Symmetric Cipher              | /symmetric-cipher            |
+| Vigenère Cipher               | /vigenere-cipher             |
+| Hill Cipher                   | /hill-cipher                 |
+| One-Time Pad                  | /one-time-pad                |
+| RSA                           | /rsa                         |
+| Key Exchange (Diffie-Hellman) | /key-exchange                |
+| ElGamal                       | /elgamal                     |
 
-- React – Frontend framework for building the interactive UI
-- TypeScript – Provides type safety for components and helper functions
-- CSS-in-JS / Inline CSS – Styling for components to make them responsive and visually clean
-- Modular JS functions – For cipher computations and key generation logic
+## Cryptography Topics Covered
 
-Cryptography Topics Covered
+- Classical Symmetric Ciphers: Shift, Affine, Keyword Mixed, Vigenère, Hill, One-Time Pad  
+- Modern Asymmetric Cryptography: RSA, Diffie-Hellman Key Exchange, ElGamal  
+- Digital Signatures and Authentication  
+- Modular Arithmetic & Number Theory Concepts
 
-- Classical Symmetric Ciphers: Shift, Affine, Keyword Mixed, Vigenère, Hill, One-Time Pad
-- Modern Asymmetric Cryptography: RSA, Diffie-Hellman Key Exchange, ElGamal Cryptosystem
-- Digital Signatures and Authentication techniques
-- Modular arithmetic and number theory concepts
+## Technologies Used
 
-Getting Started
+- React - Frontend framework for interactive UI components  
+- TypeScript - Type-safe development  
+- CSS - Styling for responsive and clean UI  
+- Vite - Modern build tool for fast development  
+
+## Getting Started
 
 1. Clone the repository:
-   git clone [https://github.com/your-username/cryptography-web-app](https://github.com/Musala001/OneBigProject).git
+   ```bash
+   git clone https://github.com/Musala001/OneBigProject.git
 2. Install dependencies:
-   npm install
-3. Run the development server:
-   npm run dev
-4. Open http://localhost:5173 to view in your browser
+
+3. npm install
+   Start the development server:
+
+4. npm run dev
+   Open your browser at http://localhost:5173
 
 Contributing
 
-Contributions are welcome. Feel free to open issues or submit pull requests for improvements, new ciphers, or UI enhancements
+Contributions are welcome! You can:
+
+Add new ciphers or cryptography algorithms
+
+Improve UI/UX and styling
+
+Fix bugs or enhance documentation
+
+Please open an issue or submit a pull request for any changes.
 
 License
 
-This project is licensed under the MIT License
+This project is licensed under the MIT License. See the LICENSE
+ file for details.
+
+
+
