@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { CSSProperties } from "react";
+import type { CSSProperties } from "react";
+import { useState } from "react";
 
 const Navbar = () => {
   const navStyle: CSSProperties = {
@@ -27,7 +28,7 @@ const Navbar = () => {
     gap: "0.5rem",
   };
 
-  const linkStyle: CSSProperties = {
+  const linkBaseStyle: CSSProperties = {
     color: "#fff",
     textDecoration: "none",
     padding: "0.3rem 0.5rem",
@@ -35,47 +36,42 @@ const Navbar = () => {
     transition: "background-color 0.3s",
   };
 
-  const linkHoverStyle: CSSProperties = {
-    backgroundColor: "#374151",
-  };
+  // List of pages for easier scalability
+  const links = [
+    { to: "/", label: "Home" },
+    { to: "/shift-cipher", label: "Shift" },
+    { to: "/affine-cipher", label: "Affine" },
+    { to: "/keyword-mixed", label: "Keyword Mixed" },
+    { to: "/symmetric-cipher", label: "Symmetric" },
+    { to: "/vigenere-cipher", label: "Vigenère" },
+    { to: "/hill-cipher", label: "Hill" },
+    { to: "/one-time-pad", label: "OTP" },
+    { to: "/rsa", label: "RSA" },
+    { to: "/key-exchange", label: "Key Exchange" },
+    { to: "/elgamal", label: "ElGamal" },
+  ];
+
+  // Hover effect handled via inline state
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
     <nav style={navStyle}>
       <div style={titleStyle}>Cryptography Explorer</div>
       <div style={linkContainerStyle}>
-        <Link to="/" style={linkStyle}>
-          Home
-        </Link>
-        <Link to="/shift-cipher" style={linkStyle}>
-          Shift
-        </Link>
-        <Link to="/affine-cipher" style={linkStyle}>
-          Affine
-        </Link>
-        <Link to="/keyword-mixed" style={linkStyle}>
-          Keyword Mixed
-        </Link>
-        <Link to="/symmetric-cipher" style={linkStyle}>
-          Symmetric
-        </Link>
-        <Link to="/vigenere-cipher" style={linkStyle}>
-          Vigenère
-        </Link>
-        <Link to="/hill-cipher" style={linkStyle}>
-          Hill
-        </Link>
-        <Link to="/one-time-pad" style={linkStyle}>
-          OTP
-        </Link>
-        <Link to="/rsa" style={linkStyle}>
-          RSA
-        </Link>
-        <Link to="/key-exchange" style={linkStyle}>
-          Key Exchange
-        </Link>
-        <Link to="/elgamal" style={linkStyle}>
-          ElGamal
-        </Link>
+        {links.map((link, index) => (
+          <Link
+            key={link.to}
+            to={link.to}
+            style={{
+              ...linkBaseStyle,
+              backgroundColor: hoveredIndex === index ? "#374151" : "transparent",
+            }}
+            onMouseEnter={() => setHoveredIndex(index)}
+            onMouseLeave={() => setHoveredIndex(null)}
+          >
+            {link.label}
+          </Link>
+        ))}
       </div>
     </nav>
   );
