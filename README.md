@@ -41,12 +41,12 @@ Cryptography Topics Covered
 Getting Started
 
 1. Clone the repository:
-   git clone https://github.com/your-username/cryptography-web-app.git
+   git clone [https://github.com/your-username/cryptography-web-app](https://github.com/Musala001/OneBigProject).git
 2. Install dependencies:
    npm install
 3. Run the development server:
-   npm start
-4. Open http://localhost:3000 to view in your browser
+   npm run dev
+4. Open http://localhost:5173 to view in your browser
 
 Contributing
 
